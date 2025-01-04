@@ -216,27 +216,35 @@
 
         static void SetBudget()
         {
-            try
+            bool budgetsetted = false;
+
+            while (!budgetsetted) 
             {
-                Console.WriteLine("Budget:");
-                budget = Convert.ToInt32(Console.ReadLine());
-                if (budget < 0)
+                try
                 {
-                    throw new Exception("Nem lehet negatív az ára.");
+                    Console.WriteLine("Budget:");
+                    budget = Convert.ToInt32(Console.ReadLine());
+                    if (budget < 0)
+                    {
+                        throw new Exception("Nem lehet negatív az ára.");
+                    }
+                    budgetsetted = true;
+
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("Túl magas szám");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Rossz formátum");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Túl magas szám");
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Rossz formátum");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
         }
 
         static void CheckBudget()
